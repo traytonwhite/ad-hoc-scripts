@@ -1,0 +1,4 @@
+--langdef=sas
+--langmap=sas:.sas
+--regex-sas=/%macro[ \t]*([a-zA-Z0-9_]+)/\1/d,definition/
+--regex-sas=/%let[ \t]*([a-zA-Z0-9_]+)/\1/d,definition/
