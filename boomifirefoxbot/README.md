@@ -10,6 +10,9 @@ General Instructions for Use
 ===================
 
 Split large input file into 1 MB chunks for test atom processing.
+
 Check the directory settings within the script, and update if needed.
+
 Open a Boomi session in FireFox and ensure the MozRepl add on is installed and running.
+
 Run the script.
