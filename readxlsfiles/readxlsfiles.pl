@@ -1,31 +1,31 @@
 #!/usr/bin/env perl
 #===============================================================================
 #
-#         FILE: readxlsquotefiles.pl
+#         FILE: readxlsfiles.pl
 #
-#        USAGE: ./readxlsquotefiles.pl quotedirectory outputfile.csv > debugfile.log
+#        USAGE: ./readxlsfiles.pl directory outputfile.csv > debugfile.log
 #
-#  DESCRIPTION: Cycle through all of the quote files in a directory and grab
-#               the reseller name, distributor name, and quote number, then print it out
-#               along with the file information.
+#  DESCRIPTION: Cycle through all of the xls files in a directory and grab
+#               specific cells of data and print out to a CSV along with other
+#               file information.
 #
-#               This assumes a certain consistent layout for each quote:
+#               This assumes a certain consistent layout for each file
 #
-#               For Distributor quotes:
-#                       quote number in cell O2
-#                       distributor name in cell N7
-#                       reseller name in cell H7
+#               For file type 1:
+#                       main number in cell O2
+#                       retail2 name in cell N7
+#                       retail1 name in cell H7
 #                       end user name in cell B7
 #
-#               For Reseller quotes, 2 options:
+#               For file type 2, 2 options:
 #                   Option 1:
-#                       quote number in cell T2
-#                       reseller name in cell D8
+#                       main number in cell T2
+#                       retail1 name in cell D8
 #                       end user name in cell J8
 #
 #                   Option 2:
-#                       quote number in cell S2
-#                       reseller name in cell D8
+#                       main number in cell S2
+#                       retail1 name in cell D8
 #                       end user name in cell J8
 #
 #
@@ -71,10 +71,10 @@ my $status;
 my $header = [
     "file name"
     , "sheet name"
-    , "quote type"
-    , "quote number"
-    , "disti account"
-    , "reseller account"
+    , "type"
+    , "main number"
+    , "retail2 account"
+    , "retail1 account"
     , "end user account"
 ];
 $status = $csv->print($out, $header);
@@ -112,7 +112,7 @@ for my $xlsfile (glob qq("${indir}*.xls")) {
                 $reseller = $sheet->get_cell(7, 3) ? $sheet->get_cell(7, 3)->value() : "";
                 $enduser = $sheet->get_cell(7, 9) ? $sheet->get_cell(7, 9)->value() : "";
             } else {
-                $quotetype = "this quote attachment did not seem to match layouts - check into more";
+                $quotetype = "this file did not seem to match layouts - check into more";
             }
             my $record = [
                 $xlsfile
