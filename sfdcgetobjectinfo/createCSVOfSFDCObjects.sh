@@ -10,7 +10,7 @@ xmlresponse="$(curl -s https://login.salesforce.com/services/Soap/u/33.0 -H "Con
 # session ID is whatever is between the <sessionId> XML tag
 sessionid="$(echo "${xmlresponse}" | sed 's/.*<sessionId>\(.*\)<\/sessionId>.*/\1/')"
 # to determine the SFDC instance, we'll grab the instance of the metadata server
-sfdcinstance="$(echo "${xmlresponse}" | sed 's/.*<metadataServerUrl>https:\/\/\(.*\)\.salesforce\.com.*<\/metadataServerUrl>.*/\1/')"
+sfdcinstance="$(echo "${xmlresponse}" | sed 's/.*<serverUrl>https:\/\/\(.*\)\.salesforce\.com.*<\/serverUrl>.*/\1/')"
 
 for object in "${objectlist[@]}"
 do
